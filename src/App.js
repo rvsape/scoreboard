@@ -17,9 +17,11 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
+const randomColor = () => `#${Math.floor(Math.random()*16777215).toString(16)}`;
+
 function App() {
   const classes = useStyles();
-  const [players, setPlayers] = useState([{id: 1, name: 'test', score: 0}]);
+  const [players, setPlayers] = useState([{id: 1, name: 'test', score: 0, color: '#000'}]);
   const [addAction, setAddAction] = useState(false);
   const [name, setName] = useState('');
   const [score, setScore] = useState(0);
@@ -44,10 +46,12 @@ function App() {
       cleanInputs();
       return
     }
+    
     const newPlayer = {
       id: players.length +1,
       name: name,
       score: score,
+      color: randomColor(),
     };
     setPlayers([...players, newPlayer])
     cleanInputs();

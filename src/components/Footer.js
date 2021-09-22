@@ -35,7 +35,6 @@ function Footer({addAction, addPlayer, playerCount, clearBoard}) {
                 {!addAction && (
                     <CustomButton
                         variant="contained"
-                        color="warning"
                         onClick={addPlayer}
                         title="Add player"
                         fullWidth={playerCount === 0}
