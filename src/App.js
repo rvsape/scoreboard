@@ -11,11 +11,14 @@ import Footer from './components/Footer';
 // - theme (better styles)
 // - animation
 // - colored board
-const useStyles = makeStyles((theme) => {
-
-});
+const useStyles = makeStyles((theme) => ({
+    titleContainer: {
+      textAlign: 'center',
+    }
+}));
 
 function App() {
+  const classes = useStyles();
   const [players, setPlayers] = useState([{id: 1, name: 'test', score: 0}]);
   const [addAction, setAddAction] = useState(false);
   const [name, setName] = useState('');
@@ -101,8 +104,8 @@ function App() {
         {!addAction && (
           <div>
             {players.length === 0 && (
-              <Grid item>
-                <h4>Begin by adding players!</h4>
+              <Grid item className={classes.titleContainer}>
+                <h2>Begin by adding players!</h2>
               </Grid>
             )}
             <PlayerList

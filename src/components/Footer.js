@@ -8,10 +8,13 @@ const useStyles = makeStyles((theme) => ({
         top: 'auto',
         bottom: 0,
         padding: theme.spacing(2),
+        [theme.breakpoints.down('321')]: {
+            padding: theme.spacing(1),
+        },
     },
     buttonContainer: {
         "& button": {
-            margin: theme.spacing(3),
+            margin: theme.spacing(1),
         }
     }
 }));
