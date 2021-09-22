@@ -7,6 +7,9 @@ const useStyles = makeStyles((theme) => ({
         marginBottom: theme.spacing(2),
         minHeight: '50px',
         minWidth: '160px',
+        [theme.breakpoints.down('390')]: {
+            minWidth: '60px',
+        },
     }
 }));
 
