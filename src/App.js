@@ -49,6 +49,7 @@ function App() {
 
   const addPlayer = () => {
     if (players.length < MAX_PLAYERS) {
+      setActiveId(0);
       setAddAction(true);
     }
   }
@@ -108,6 +109,7 @@ function App() {
 
   const clearBoard = () => {
     setColorBank([...COLOR_BANK]);
+    setActiveId(0);
     setPlayers([]);
   }
 

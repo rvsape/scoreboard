@@ -23,6 +23,18 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: '5px',
         minHeight: '60px',
         fontWeight: 'bold',
+    },
+    textContainer: {
+        minHeight: '40px',
+        padding: '8px 0'
+    },
+    input: {
+        padding: '2px 2px',
+    },
+    scoreContainer: {
+        padding: '10px',
+        marginLeft: '20px',
+        minHeight: '40px',
     }
 }));
 
@@ -31,7 +43,7 @@ function PlayerList({players, activeId, activateScoreInput, keyUp, deletePlayer,
     const scoreDisplay = (player) => {
         if (activeId === player.id) {
             return (
-                <span style={{ 'padding': '10px', 'marginLeft': '20px', minHeight: '35px'}}>
+                <span className={classes.scoreContainer}>
                     {player.score} + 
                     <span>
                         <TextField
@@ -41,12 +53,17 @@ function PlayerList({players, activeId, activateScoreInput, keyUp, deletePlayer,
                             onKeyUp={() => keyUp()}
                             onChange={(e) => updateScore(e)}
                             size="small"
+                            InputProps={{
+                                classes: {
+                                    input: classes.input
+                                }
+                            }}
                         />
                     </span>
                 </span>
             )
         }
-        return <span style={{ 'padding': '10px', 'marginLeft': '20px' }} onClick={() => activateScoreInput(player)}>{player.score}</span>
+        return <span className={classes.scoreContainer} onClick={() => activateScoreInput(player)}>{player.score}</span>
     }
 
     const renderPlayers = () => {
@@ -58,7 +75,7 @@ function PlayerList({players, activeId, activateScoreInput, keyUp, deletePlayer,
                             <ListItemIcon>
                                 <DeleteSharpIcon onClick={() => deletePlayer(player)} />
                             </ListItemIcon>
-                            <ListItemText style={{ 'minHeight': '35px', padding: '8px 0'  }}>
+                            <ListItemText className={classes.textContainer}>
                                 {player.name}
                                 {scoreDisplay(player)}
                             </ListItemText>
