@@ -6,7 +6,7 @@ const useStyles = makeStyles((theme) => ({
         marginTop: theme.spacing(2),
         marginBottom: theme.spacing(2),
         minHeight: '50px',
-        minWidth: '160px',
+        minWidth: '50px',
         color: '#fff',
         fontWeight: 'bold',
         borderRadius: '0',

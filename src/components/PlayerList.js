@@ -8,6 +8,11 @@ import DeleteSharpIcon from '@material-ui/icons/DeleteSharp';
 import TextField from '@material-ui/core/TextField';
 
 const useStyles = makeStyles((theme) => ({
+    listContainer: {
+        position: 'relative',
+        paddingBottom: '100px',
+        top: '100px'
+    },
     itemContainer: {
         textAlign: 'center',
         padding: theme.spacing(2),
@@ -28,8 +33,13 @@ const useStyles = makeStyles((theme) => ({
         minHeight: '40px',
         padding: '8px 0'
     },
+    nameContainer: {
+        display: 'inline-block',
+        width: '90px'
+    },
     input: {
         padding: '2px 2px',
+        maxWidth: '100px'
     },
     scoreContainer: {
         padding: '10px',
@@ -40,6 +50,7 @@ const useStyles = makeStyles((theme) => ({
 
 function PlayerList({players, activeId, activateScoreInput, keyUp, deletePlayer, updateScore, newScore}) {
     const classes = useStyles();
+    
     const scoreDisplay = (player) => {
         if (activeId === player.id) {
             return (
@@ -49,6 +60,7 @@ function PlayerList({players, activeId, activateScoreInput, keyUp, deletePlayer,
                         <TextField
                             id="newscore"
                             type="number"
+                            autoFocus
                             value={newScore}
                             onKeyUp={() => keyUp()}
                             onChange={(e) => updateScore(e)}
@@ -76,7 +88,9 @@ function PlayerList({players, activeId, activateScoreInput, keyUp, deletePlayer,
                                 <DeleteSharpIcon onClick={() => deletePlayer(player)} />
                             </ListItemIcon>
                             <ListItemText className={classes.textContainer}>
-                                {player.name}
+                                <span className={classes.nameContainer}>
+                                    {player.name}
+                                </span>
                                 {scoreDisplay(player)}
                             </ListItemText>
                         </ListItem>
@@ -88,11 +102,7 @@ function PlayerList({players, activeId, activateScoreInput, keyUp, deletePlayer,
 
     return (
         <Grid item xs={12} md={12}
-            style={{
-                position: 'relative',
-                paddingBottom: '100px',
-                top: '100px'
-            }}
+            className={classes.listContainer}
         >
             {renderPlayers()}
         </Grid>

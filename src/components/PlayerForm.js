@@ -3,6 +3,8 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import CustomButton from './Button';
 
+import { MAX_NAME_LENGTH } from '../constants';
+
 const useStyles = makeStyles((theme) => ({
     container: {
         width: '80%',
@@ -14,11 +16,17 @@ const useStyles = makeStyles((theme) => ({
             margin: theme.spacing(1),
         }
     },
+    lengthDisplay: {
+        position: 'relative',
+        right: '0',
+        textAlign: 'end',
+        margin: '0px',
+    }
 }));
 
 function PlayerForm({name, setName, setScore, savePlayer}) {
     const classes = useStyles();
-
+    
     return (
         <Grid item className={classes.container}>
             <TextField
@@ -26,8 +34,17 @@ function PlayerForm({name, setName, setScore, savePlayer}) {
                 label="Name"
                 type="text"
                 fullWidth
+                inputProps={{
+                    maxLength: MAX_NAME_LENGTH
+                }}
                 onChange={e => setName(e.target.value)}
+                style={{
+                    marginBottom: '2px'
+                }}
             />
+            <div className={classes.lengthDisplay}>
+                {MAX_NAME_LENGTH - name.length}
+            </div>
             <TextField
                 id="player-score"
                 label="Initial score"

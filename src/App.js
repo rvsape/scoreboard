@@ -18,6 +18,11 @@ const useStyles = makeStyles((theme) => ({
       textAlign: 'center',
       position: 'relative',
       top: '100px'
+    },
+    container: {
+      height: '100%',
+      position: 'relative',
+      minWidth: '360px'
     }
 }));
 
@@ -113,6 +118,16 @@ function App() {
     setPlayers([]);
   }
 
+  const resetScores = () => {
+    const resetPlayerScores = players.map(p => {
+      return {
+        ...p,
+        score: 0
+      }
+    });
+    setPlayers(resetPlayerScores);
+  }
+
   return (
     <div>
       <Header />
@@ -121,10 +136,7 @@ function App() {
         direction="column"
         justifyContent="center"
         alignItems="stretch"
-        style={{
-          height: '100%',
-          position: 'relative',
-        }}
+        className={classes.container}
       >
         {!addAction && (
           <React.Fragment>
@@ -158,6 +170,7 @@ function App() {
         addAction={addAction}
         playerCount={players.length}
         clearBoard={clearBoard}
+        resetScores={resetScores}
       />
     </div>
   );
