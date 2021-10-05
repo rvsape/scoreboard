@@ -59,6 +59,13 @@ function App() {
     }
   }
 
+  const sortPlayersByScore = (newScores) => {
+    const sortedPlayers = newScores.sort((a, b) => {
+      return b.score - a.score
+    })
+    setPlayers(sortedPlayers);
+  }
+
   const savePlayer = () => {
     setAddAction(false);
     const temp = name.trim();
@@ -72,7 +79,11 @@ function App() {
       score: score,
       color: setPlayerColor(),
     };
-    setPlayers([...players, newPlayer])
+    if (score > 0) {
+      sortPlayersByScore([...players, newPlayer]);
+    } else {
+      setPlayers([...players, newPlayer]);
+    }
     cleanInputs();
   }
 
@@ -105,7 +116,7 @@ function App() {
             score: (parseInt(p.score) + (isNaN(scoreToInt) ? 0 : scoreToInt)) }
           : p
       );
-      setPlayers(updatedPlayers);
+      sortPlayersByScore(updatedPlayers);
       setActiveId(0);
       setNewScore('');
     }, TIMEOUT);
