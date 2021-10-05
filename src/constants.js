@@ -1,5 +1,5 @@
 export const MAX_PLAYERS = 12;
-export let COLOR_BANK = [
+export const COLOR_BANK = [
     '#060075',
     '#007540',
     '#752200',
