@@ -22,9 +22,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const setColor = () => {
+  console.log('function: setColor');
   const colorIndex = Math.floor(Math.random() * COLOR_BANK.length);
   const color = COLOR_BANK[colorIndex];
   COLOR_BANK.splice(colorIndex, 1);
+  console.log('colors left: ', COLOR_BANK.length);
+  console.log('content:', COLOR_BANK);
   return color;
 };
 
