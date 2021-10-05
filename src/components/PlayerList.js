@@ -10,39 +10,6 @@ const useStyles = makeStyles((theme) => ({
         position: 'relative',
         paddingBottom: '100px',
         top: '100px'
-    },
-    itemContainer: {
-        textAlign: 'center',
-        padding: theme.spacing(2),
-        paddingBottom: theme.spacing(1),
-        paddingTop: theme.spacing(1),
-        position: 'relative'
-    },
-    listItem: {
-        backgroundColor: '#fff',
-        border: '3px solid',
-        padding: theme.spacing(1),
-        paddingLeft: theme.spacing(4),
-        borderRadius: '5px',
-        minHeight: '60px',
-        fontWeight: 'bold',
-    },
-    textContainer: {
-        minHeight: '40px',
-        padding: '8px 0'
-    },
-    nameContainer: {
-        display: 'inline-block',
-        width: '90px'
-    },
-    input: {
-        padding: '2px 2px',
-        maxWidth: '100px'
-    },
-    scoreContainer: {
-        padding: '10px',
-        marginLeft: '20px',
-        minHeight: '40px',
     }
 }));
 

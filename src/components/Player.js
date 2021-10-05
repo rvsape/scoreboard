@@ -10,11 +10,6 @@ import DeleteSharpIcon from '@material-ui/icons/DeleteSharp';
 import TextField from '@material-ui/core/TextField';
 
 const useStyles = makeStyles((theme) => ({
-    listContainer: {
-        position: 'relative',
-        paddingBottom: '100px',
-        top: '100px'
-    },
     itemContainer: {
         textAlign: 'center',
         padding: theme.spacing(2),

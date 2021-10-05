@@ -44,7 +44,7 @@ function Footer({addAction, addPlayer, playerCount, clearBoard, resetScores}) {
                         />
                     </React.Fragment>
                 )}
-                {!addAction && (
+                {!addAction && playerCount < MAX_PLAYERS && (
                     <CustomButton
                         variant="outlined"
                         color="secondary"
