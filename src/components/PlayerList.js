@@ -1,11 +1,9 @@
+import { createRef } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import DeleteSharpIcon from '@material-ui/icons/DeleteSharp';
-import TextField from '@material-ui/core/TextField';
+
+import AnimateList from './AnimateList';
+import Player from './Player'
 
 const useStyles = makeStyles((theme) => ({
     listContainer: {
@@ -50,61 +48,26 @@ const useStyles = makeStyles((theme) => ({
 
 function PlayerList({players, activeId, activateScoreInput, keyUp, deletePlayer, updateScore, newScore}) {
     const classes = useStyles();
-    
-    const scoreDisplay = (player) => {
-        if (activeId === player.id) {
-            return (
-                <span className={classes.scoreContainer}>
-                    {player.score} + 
-                    <span>
-                        <TextField
-                            id="newscore"
-                            type="number"
-                            autoFocus
-                            value={newScore}
-                            onKeyUp={() => keyUp()}
-                            onChange={(e) => updateScore(e)}
-                            size="small"
-                            InputProps={{
-                                classes: {
-                                    input: classes.input
-                                }
-                            }}
-                        />
-                    </span>
-                </span>
-            )
-        }
-        return <span className={classes.scoreContainer} onClick={() => activateScoreInput(player)}>{player.score}</span>
-    }
-
-    const renderPlayers = () => {
-        return players.map((player) => {
-            return (
-                <Grid item xs={12} md={12} key={player.id}>
-                    <List className={classes.itemContainer}>
-                        <ListItem className={classes.listItem} style={{ 'borderColor': player.color}}>
-                            <ListItemIcon>
-                                <DeleteSharpIcon onClick={() => deletePlayer(player)} />
-                            </ListItemIcon>
-                            <ListItemText className={classes.textContainer}>
-                                <span className={classes.nameContainer}>
-                                    {player.name}
-                                </span>
-                                {scoreDisplay(player)}
-                            </ListItemText>
-                        </ListItem>
-                    </List>
-                </Grid>
-            )
-        });
-    }
 
     return (
         <Grid item xs={12} md={12}
             className={classes.listContainer}
         >
-            {renderPlayers()}
+            <AnimateList>
+                {players.map(player => (
+                    <Player
+                        key={player.id}
+                        player={player}
+                        activeId={activeId}
+                        activateScoreInput={activateScoreInput}
+                        keyUp={keyUp}
+                        deletePlayer={deletePlayer}
+                        updateScore={updateScore}
+                        newScore={newScore}
+                        ref={createRef()}
+                    />
+                ))}
+            </AnimateList>
         </Grid>
     )
 }

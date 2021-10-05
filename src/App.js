@@ -79,7 +79,11 @@ function App() {
       score: score,
       color: setPlayerColor(),
     };
-    setPlayers([...players, newPlayer])
+    if (score > 0) {
+      sortPlayersByScore([...players, newPlayer]);
+    } else {
+      setPlayers([...players, newPlayer]);
+    }
     cleanInputs();
   }
 
