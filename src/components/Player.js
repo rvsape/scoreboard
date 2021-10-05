@@ -80,7 +80,10 @@ const Player = forwardRef(({player, activeId, newScore, keyUp, updateScore, acti
             <List className={classes.itemContainer}>
                 <ListItem className={classes.listItem} style={{ 'borderColor': player.color}}>
                     <ListItemIcon>
-                        <DeleteSharpIcon onClick={() => deletePlayer(player)} />
+                        <DeleteSharpIcon 
+                            onClick={() => deletePlayer(player)}
+                            style={{ 'color': player.color }}
+                        />
                     </ListItemIcon>
                     <ListItemText className={classes.textContainer}>
                         <span className={classes.nameContainer}>
