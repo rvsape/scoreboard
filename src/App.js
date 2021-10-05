@@ -21,42 +21,31 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const setColor = () => {
-  const colorIndex = Math.floor(Math.random() * COLOR_BANK.length);
-  const color = COLOR_BANK[colorIndex];
-  COLOR_BANK.splice(colorIndex, 1);
-  return color;
-};
-
-const testPool = [
-  {id: 1, name: 'first', score: 0, color: setColor()},
-  {id: 2, name: 'test', score: 0, color: setColor()},
-  {id: 3, name: 'test', score: 0, color: setColor()},
-  {id: 4, name: 'test', score: 0, color: setColor()},
-  {id: 5, name: 'test', score: 0, color: setColor()},
-  {id: 6, name: 'test', score: 0, color: setColor()},
-  {id: 7, name: 'test', score: 0, color: setColor()},
-  {id: 8, name: 'test', score: 0, color: setColor()},
-  {id: 756, name: 'test', score: 0, color: setColor()},
-  {id: 43, name: 'test', score: 0, color: setColor()},
-  {id: 42, name: 'last', score: 0, color: setColor()}
-]
-
 function App() {
   const classes = useStyles();
-  const [players, setPlayers] = useState(testPool);
+  const [players, setPlayers] = useState([]);
   const [addAction, setAddAction] = useState(false);
   const [name, setName] = useState('');
   const [score, setScore] = useState(0);
   const [newScore, setNewScore] = useState('');
   const [activeId, setActiveId] = useState(0);
   const [timeoutId, setTimeoutId] = useState(undefined);
+  const [colorBank, setColorBank] = useState([...COLOR_BANK]);
   const TIMEOUT = 750;
 
   const cleanInputs = () => {
     setName('');
     setScore(0);
   }
+
+  const setPlayerColor = () => {
+    let color_bank = [...colorBank];
+    const colorIndex = Math.floor(Math.random() * color_bank.length);
+    const color = color_bank[colorIndex];
+    color_bank.splice(colorIndex, 1);
+    setColorBank(color_bank);
+    return color;
+  };
 
   const addPlayer = () => {
     if (players.length < MAX_PLAYERS) {
@@ -75,7 +64,7 @@ function App() {
       id: players.length +1,
       name: name,
       score: score,
-      color: setColor(),
+      color: setPlayerColor(),
     };
     setPlayers([...players, newPlayer])
     cleanInputs();
@@ -118,6 +107,7 @@ function App() {
   }
 
   const clearBoard = () => {
+    setColorBank([...COLOR_BANK]);
     setPlayers([]);
   }
 
