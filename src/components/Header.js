@@ -11,8 +11,9 @@ const useStyles = makeStyles((theme) => ({
         textAlign: 'center',
         padding: theme.spacing(2),
         color: '#fff',
-        fontWeight: '500',
-        letterSpacing: '0.2rem'
+        fontWeight: 'bold',
+        letterSpacing: '0.2rem',
+        textTransform: 'uppercase'
     }
 }))
 
@@ -21,7 +22,7 @@ function Header() {
 
     return (
         <Grid item className={classes.root}>
-            <AppBar position="static">
+            <AppBar position="fixed">
                 <Typography variant="h2" className={classes.title}>
                     Scoreboard
                 </Typography>

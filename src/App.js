@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 
@@ -7,21 +7,44 @@ import Header from './components/Header';
 import PlayerList from './components/PlayerList';
 import PlayerForm from './components/PlayerForm';
 import Footer from './components/Footer';
+import { MAX_PLAYERS, COLOR_BANK } from './constants';
+
 // TODO:
 // - theme (better styles)
 // - animation
-// - colored board
+
 const useStyles = makeStyles((theme) => ({
     titleContainer: {
       textAlign: 'center',
+      position: 'relative',
+      top: '100px'
     }
 }));
 
-const randomColor = () => `#${Math.floor(Math.random()*16777215).toString(16)}`;
+const setColor = () => {
+  const colorIndex = Math.floor(Math.random() * COLOR_BANK.length);
+  const color = COLOR_BANK[colorIndex];
+  COLOR_BANK.splice(colorIndex, 1);
+  return color;
+};
+
+const testPool = [
+  {id: 1, name: 'first', score: 0, color: setColor()},
+  {id: 2, name: 'test', score: 0, color: setColor()},
+  {id: 3, name: 'test', score: 0, color: setColor()},
+  {id: 4, name: 'test', score: 0, color: setColor()},
+  {id: 5, name: 'test', score: 0, color: setColor()},
+  {id: 6, name: 'test', score: 0, color: setColor()},
+  {id: 7, name: 'test', score: 0, color: setColor()},
+  {id: 8, name: 'test', score: 0, color: setColor()},
+  {id: 756, name: 'test', score: 0, color: setColor()},
+  {id: 43, name: 'test', score: 0, color: setColor()},
+  {id: 42, name: 'last', score: 0, color: setColor()}
+]
 
 function App() {
   const classes = useStyles();
-  const [players, setPlayers] = useState([{id: 1, name: 'test', score: 0, color: '#000'}]);
+  const [players, setPlayers] = useState(testPool);
   const [addAction, setAddAction] = useState(false);
   const [name, setName] = useState('');
   const [score, setScore] = useState(0);
@@ -36,7 +59,9 @@ function App() {
   }
 
   const addPlayer = () => {
-    setAddAction(true);
+    if (players.length < MAX_PLAYERS) {
+      setAddAction(true);
+    }
   }
 
   const savePlayer = () => {
@@ -46,12 +71,11 @@ function App() {
       cleanInputs();
       return
     }
-    
     const newPlayer = {
       id: players.length +1,
       name: name,
       score: score,
-      color: randomColor(),
+      color: setColor(),
     };
     setPlayers([...players, newPlayer])
     cleanInputs();
@@ -98,15 +122,20 @@ function App() {
   }
 
   return (
-    <Grid
-      container
-      direction="column"
-      justifyContent="center"
-      alignItems="stretch"
-    >
+    <div>
       <Header />
+      <Grid
+        container
+        direction="column"
+        justifyContent="center"
+        alignItems="stretch"
+        style={{
+          height: '100%',
+          position: 'relative',
+        }}
+      >
         {!addAction && (
-          <div>
+          <React.Fragment>
             {players.length === 0 && (
               <Grid item className={classes.titleContainer}>
                 <h2>Begin by adding players!</h2>
@@ -121,7 +150,7 @@ function App() {
               newScore={newScore}
               deletePlayer={deletePlayer}
             />
-          </div>
+          </React.Fragment>
         )}
         {addAction && (
           <PlayerForm
@@ -131,13 +160,14 @@ function App() {
             savePlayer={savePlayer}
           />
         )}
+      </Grid>
       <Footer
         addPlayer={addPlayer}
         addAction={addAction}
         playerCount={players.length}
         clearBoard={clearBoard}
       />
-    </Grid>
+    </div>
   );
 }
 
