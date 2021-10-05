@@ -18,6 +18,11 @@ const useStyles = makeStyles((theme) => ({
       textAlign: 'center',
       position: 'relative',
       top: '100px'
+    },
+    container: {
+      height: '100%',
+      position: 'relative',
+      minWidth: '360px'
     }
 }));
 
@@ -49,6 +54,7 @@ function App() {
 
   const addPlayer = () => {
     if (players.length < MAX_PLAYERS) {
+      setActiveId(0);
       setAddAction(true);
     }
   }
@@ -108,7 +114,18 @@ function App() {
 
   const clearBoard = () => {
     setColorBank([...COLOR_BANK]);
+    setActiveId(0);
     setPlayers([]);
+  }
+
+  const resetScores = () => {
+    const resetPlayerScores = players.map(p => {
+      return {
+        ...p,
+        score: 0
+      }
+    });
+    setPlayers(resetPlayerScores);
   }
 
   return (
@@ -119,10 +136,7 @@ function App() {
         direction="column"
         justifyContent="center"
         alignItems="stretch"
-        style={{
-          height: '100%',
-          position: 'relative',
-        }}
+        className={classes.container}
       >
         {!addAction && (
           <React.Fragment>
@@ -156,6 +170,7 @@ function App() {
         addAction={addAction}
         playerCount={players.length}
         clearBoard={clearBoard}
+        resetScores={resetScores}
       />
     </div>
   );

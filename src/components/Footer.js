@@ -1,3 +1,4 @@
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -21,19 +22,27 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-function Footer({addAction, addPlayer, playerCount, clearBoard}) {
+function Footer({addAction, addPlayer, playerCount, clearBoard, resetScores}) {
     const classes = useStyles();
 
     return (
         <AppBar position="fixed" className={classes.footer}>
             <Toolbar className={classes.buttonContainer} style={playerCount > 0 ? { margin: 'auto'} : {}}>
                 {(playerCount > 0 && !addAction) && (
-                    <CustomButton
-                        variant="outlined"
-                        onClick={clearBoard}
-                        title="Clear board"
-                        color="secondary"
-                    />
+                    <React.Fragment>
+                        <CustomButton
+                            variant="outlined"
+                            onClick={clearBoard}
+                            title="Clear board"
+                            color="secondary"
+                        />
+                        <CustomButton
+                            variant="outlined"
+                            color="secondary"
+                            onClick={resetScores}
+                            title="Reset scores"
+                        />
+                    </React.Fragment>
                 )}
                 {!addAction && (
                     <CustomButton

@@ -8,6 +8,11 @@ import DeleteSharpIcon from '@material-ui/icons/DeleteSharp';
 import TextField from '@material-ui/core/TextField';
 
 const useStyles = makeStyles((theme) => ({
+    listContainer: {
+        position: 'relative',
+        paddingBottom: '100px',
+        top: '100px'
+    },
     itemContainer: {
         textAlign: 'center',
         padding: theme.spacing(2),
@@ -23,30 +28,54 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: '5px',
         minHeight: '60px',
         fontWeight: 'bold',
+    },
+    textContainer: {
+        minHeight: '40px',
+        padding: '8px 0'
+    },
+    nameContainer: {
+        display: 'inline-block',
+        width: '90px'
+    },
+    input: {
+        padding: '2px 2px',
+        maxWidth: '100px'
+    },
+    scoreContainer: {
+        padding: '10px',
+        marginLeft: '20px',
+        minHeight: '40px',
     }
 }));
 
 function PlayerList({players, activeId, activateScoreInput, keyUp, deletePlayer, updateScore, newScore}) {
     const classes = useStyles();
+    
     const scoreDisplay = (player) => {
         if (activeId === player.id) {
             return (
-                <span style={{ 'padding': '10px', 'marginLeft': '20px', minHeight: '35px'}}>
+                <span className={classes.scoreContainer}>
                     {player.score} + 
                     <span>
                         <TextField
                             id="newscore"
                             type="number"
+                            autoFocus
                             value={newScore}
                             onKeyUp={() => keyUp()}
                             onChange={(e) => updateScore(e)}
                             size="small"
+                            InputProps={{
+                                classes: {
+                                    input: classes.input
+                                }
+                            }}
                         />
                     </span>
                 </span>
             )
         }
-        return <span style={{ 'padding': '10px', 'marginLeft': '20px' }} onClick={() => activateScoreInput(player)}>{player.score}</span>
+        return <span className={classes.scoreContainer} onClick={() => activateScoreInput(player)}>{player.score}</span>
     }
 
     const renderPlayers = () => {
@@ -58,8 +87,10 @@ function PlayerList({players, activeId, activateScoreInput, keyUp, deletePlayer,
                             <ListItemIcon>
                                 <DeleteSharpIcon onClick={() => deletePlayer(player)} />
                             </ListItemIcon>
-                            <ListItemText style={{ 'minHeight': '35px', padding: '8px 0'  }}>
-                                {player.name}
+                            <ListItemText className={classes.textContainer}>
+                                <span className={classes.nameContainer}>
+                                    {player.name}
+                                </span>
                                 {scoreDisplay(player)}
                             </ListItemText>
                         </ListItem>
@@ -71,11 +102,7 @@ function PlayerList({players, activeId, activateScoreInput, keyUp, deletePlayer,
 
     return (
         <Grid item xs={12} md={12}
-            style={{
-                position: 'relative',
-                paddingBottom: '100px',
-                top: '100px'
-            }}
+            className={classes.listContainer}
         >
             {renderPlayers()}
         </Grid>
