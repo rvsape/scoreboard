@@ -9,14 +9,17 @@ let theme = createTheme({
             main: '#00acc1',
         },
         secondary: {
-            main: '#f48fb1',
+            main: '#fff',
         },
         text: {
             // primary: '#fff'
+            disabled: '#757575'
         },
+        action: {
+        }
     },
     typography: {
-        fontFamily: ["Roboto"].join(','),
+        fontFamily: ['sans-serif'].join(','),
         button: {
             letterSpacing: '0.09rem',
         },

@@ -7,7 +7,12 @@ const useStyles = makeStyles((theme) => ({
     container: {
         width: '80%',
         margin: 'auto',
+        position:'relative',
+        top:'100px',
         padding: theme.spacing(2),
+        "& *": {
+            margin: theme.spacing(1),
+        }
     },
 }));
 
