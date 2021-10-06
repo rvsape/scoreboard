@@ -3,7 +3,7 @@
 const cacheName = 'static-cache-v2';
 const dynamicCache = 'dynamic-cache-v2';
 
-const precache = ['/', '/logo144x144.png', '/favicon.ico', '/index.html'];
+const precache = ['/scoreboard/', '/logo144x144.png', '/favicon.ico', '/index.html'];
 
 self.addEventListener('install', (event) => {
     event.waitUntil(caches.open(cacheName).then((cache) => cache.addAll(precache)));
