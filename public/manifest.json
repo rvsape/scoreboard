@@ -6,12 +6,10 @@
   "icons": [
       {
         "src": "logo144x144.png",
-        "sizes": "144x144"
+        "sizes": "144x144",
+        "type": "image/png"
       }
   ],
-  "scope": "/",
-  "start_url": ".",
-  "display": "standalone",
   "orientation": "portrait",
   "theme_color": "white",
   "background_color": "#00acc1"
