@@ -10,8 +10,8 @@
         "type": "image/png"
       }
   ],
-  "start_url": "/scoreboard",
-  "scope": ".",
+  "start_url": "https://efisape.github.io/scoreboard",
+  "scope": "/",
   "display": "standalone",
   "orientation": "portrait",
   "theme_color": "white",
