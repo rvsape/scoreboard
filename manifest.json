@@ -10,7 +10,7 @@
         "type": "image/png"
       }
   ],
-  "start_url": ".",
+  "start_url": "/scoreboard",
   "scope": ".",
   "display": "standalone",
   "orientation": "portrait",
