@@ -10,6 +10,7 @@
         "type": "image/png"
       }
   ],
+  "display": "standalone",
   "orientation": "portrait",
   "theme_color": "white",
   "background_color": "#00acc1"
