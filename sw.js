@@ -1,7 +1,7 @@
 /* eslint-disable no-restricted-globals */
 
-const cacheName = 'static-cache-v2';
-const dynamicCache = 'dynamic-cache-v2';
+const cacheName = 'static-cache-v3';
+const dynamicCache = 'dynamic-cache-v3';
 
 const precache = ['/scoreboard/', '/scoreboard/logo144x144.png', '/scoreboard/favicon.ico', '/scoreboard/index.html'];
 
