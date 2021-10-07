@@ -1,17 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 
-import './App.css';
 import Header from './components/Header';
 import PlayerList from './components/PlayerList';
 import PlayerForm from './components/PlayerForm';
 import Footer from './components/Footer';
-import { MAX_PLAYERS, COLOR_BANK } from './constants';
+import { MAX_PLAYERS, COLOR_BANK, STORE_KEY } from './constants';
 
 // TODO:
 // - theme (better styles)
-// - animation
 
 const useStyles = makeStyles((theme) => ({
     titleContainer: {
@@ -37,6 +35,27 @@ function App() {
   const [timeoutId, setTimeoutId] = useState(undefined);
   const [colorBank, setColorBank] = useState([...COLOR_BANK]);
   const TIMEOUT = 750;
+
+  useEffect(() => {
+    let prevBoard = localStorage.getItem(STORE_KEY);
+    if (prevBoard !== null) {
+      let parsed = JSON.parse(prevBoard);
+      setPlayers(parsed);
+      const parseColorBank = colorBank.filter(color => {
+        const colorInUse = parsed.findIndex(p => p.color === color);
+        if (colorInUse >= 0) {
+          return false;
+        } else {
+          return true;
+        }
+      });
+      setColorBank(parseColorBank);
+    }
+  }, [])
+
+  useEffect(() => {
+    localStorage.setItem(STORE_KEY, JSON.stringify(players));
+  }, [players])
 
   const cleanInputs = () => {
     setName('');
@@ -84,6 +103,7 @@ function App() {
     } else {
       setPlayers([...players, newPlayer]);
     }
+    
     cleanInputs();
   }
 

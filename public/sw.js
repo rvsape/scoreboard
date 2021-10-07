@@ -1,7 +1,7 @@
 /* eslint-disable no-restricted-globals */
 
-const cacheName = 'static-cache-v2';
-const dynamicCache = 'dynamic-cache-v2';
+const cacheName = 'static-cache-v3';
+const dynamicCache = 'dynamic-cache-v3';
 
 const precache = ['/scoreboard/', '/scoreboard/logo144x144.png', '/scoreboard/favicon.ico', '/scoreboard/index.html'];
 
@@ -22,7 +22,11 @@ self.addEventListener('fetch', (event) => {
             // add to dynamic cache
             return fetch(event.request).then((response) => {
                 return caches.open(dynamicCache).then((cache) => {
-                    cache.put(event.request.url, response.clone());
+                    try {
+                        cache.put(event.request.url, response.clone());
+                    } catch (err) {
+                        console.log('put to', dynamicCache, 'failed: ', err)
+                    }
                     return response;
                 })
             });
