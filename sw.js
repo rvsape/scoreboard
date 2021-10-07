@@ -1,7 +1,7 @@
 /* eslint-disable no-restricted-globals */
 // TODO: delete old cache versions
-const cacheName = 'static-cache-v3';
-const dynamicCache = 'dynamic-cache-v3';
+const cacheName = 'static-cache-v4';
+const dynamicCache = 'dynamic-cache-v4';
 
 const precache = ['/scoreboard/', '/scoreboard/logo144x144.png', '/scoreboard/favicon.ico', '/scoreboard/index.html'];
 
