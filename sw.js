@@ -1,12 +1,11 @@
 /* eslint-disable no-restricted-globals */
-// TODO: delete old cache versions
-const cacheName = 'static-cache-v4';
-const dynamicCache = 'dynamic-cache-v4';
+const STATIC_CACHE = 'static-cache-v1';
+const DYNAMIC_CACHE = 'dynamic-cache-v4';
 
 const precache = ['/scoreboard/', '/scoreboard/logo144x144.png', '/scoreboard/favicon.ico', '/scoreboard/index.html'];
 
 self.addEventListener('install', (event) => {
-    event.waitUntil(caches.open(cacheName).then((cache) => cache.addAll(precache)));
+    event.waitUntil(caches.open(STATIC_CACHE).then((cache) => cache.addAll(precache)));
 });
 
 self.addEventListener('activate', (event) => {
@@ -15,9 +14,8 @@ self.addEventListener('activate', (event) => {
         caches.keys()
             .then((keys) => {
                 return Promise.all(keys.map((k) => {
-                    if (k !== cacheName && k !== dynamicCache) {
+                    if (k !== STATIC_CACHE && k !== DYNAMIC_CACHE) {
                         // old cache, remove
-                        console.log('remove old cache', k);
                         return caches.delete(k);
                     }
                 }));
@@ -34,11 +32,12 @@ self.addEventListener('fetch', (event) => {
             }
             // add to dynamic cache
             return fetch(event.request).then((response) => {
-                return caches.open(dynamicCache).then((cache) => {
+                return caches.open(DYNAMIC_CACHE).then((cache) => {
+                    console.log('test 3: cache: ', event.request.url);
                     try {
                         cache.put(event.request.url, response.clone());
                     } catch (err) {
-                        console.log('put to', dynamicCache, 'failed: ', err)
+                        console.log('put to', DYNAMIC_CACHE, 'failed: ', err)
                     }
                     return response;
                 })
