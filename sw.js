@@ -37,6 +37,7 @@ self.addEventListener('fetch', (event) => {
                     console.log('test 3: cache: ', event.request.url);
                     try {
                         if (!event.request.url.includes("chrome")) {
+                            console.log('put to cache', event.request.url);
                             cache.put(event.request.url, response.clone());
                         }
                     } catch (err) {
