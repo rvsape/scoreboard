@@ -36,7 +36,7 @@ self.addEventListener('fetch', (event) => {
                 return caches.open(DYNAMIC_CACHE).then((cache) => {
                     console.log('test 3: cache: ', event.request.url);
                     try {
-                        if (!str.includes("chrome")) {
+                        if (!event.request.url.includes("chrome")) {
                             cache.put(event.request.url, response.clone());
                         }
                     } catch (err) {
