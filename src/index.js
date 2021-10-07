@@ -26,10 +26,8 @@ if ('serviceWorker' in navigator) {
       console.log('Service worker registered', registration);
       if (registration.active) {
         registration.addEventListener('updatefound', () => {
-          console.log('Update found');
           const newWorker = registration.installing;
           newWorker.addEventListener('statechange', () => {
-            console.log('newWorker ready');
             onUpdate();
           });
         })
@@ -41,7 +39,6 @@ if ('serviceWorker' in navigator) {
 }
 
 function onUpdate() {
-  console.log('prompt about reload');
-  window.location.reload();
+  window.location.reload(true);
 }
 
