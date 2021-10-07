@@ -1,5 +1,5 @@
 /* eslint-disable no-restricted-globals */
-
+// TODO: delete old cache versions
 const cacheName = 'static-cache-v3';
 const dynamicCache = 'dynamic-cache-v3';
 
@@ -10,6 +10,19 @@ self.addEventListener('install', (event) => {
 });
 
 self.addEventListener('activate', (event) => {
+    // clean up cache
+    event.waitUntil(
+        caches.keys()
+            .then((keys) => {
+                return Promise.all(keys.map((k) => {
+                    if (k !== cacheName && k !== dynamicCache) {
+                        // old cache, remove
+                        console.log('remove old cache', k);
+                        return caches.delete(k);
+                    }
+                }));
+            })
+    );
     return self.clients.claim();
 });
 
