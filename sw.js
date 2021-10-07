@@ -1,6 +1,6 @@
 /* eslint-disable no-restricted-globals */
 const STATIC_CACHE = 'static-cache-v1';
-const DYNAMIC_CACHE = 'dynamic-cache-v4';
+const DYNAMIC_CACHE = 'dynamic-cache-v2';
 
 const precache = ['/scoreboard/', '/scoreboard/logo144x144.png', '/scoreboard/favicon.ico', '/scoreboard/index.html'];
 
@@ -28,16 +28,13 @@ self.addEventListener('fetch', (event) => {
     event.respondWith(
         caches.match(event.request).then((cacheResponse) => {
             if (cacheResponse) {
-                console.log(cacheResponse.clone())
                 return cacheResponse;
             }
             // add to dynamic cache
             return fetch(event.request).then((response) => {
                 return caches.open(DYNAMIC_CACHE).then((cache) => {
-                    console.log('test 3: cache: ', event.request.url);
                     try {
                         if (!event.request.url.includes("chrome")) {
-                            console.log('put to cache', event.request.url);
                             cache.put(event.request.url, response.clone());
                         }
                     } catch (err) {
