@@ -24,9 +24,24 @@ if ('serviceWorker' in navigator) {
     try {
       const registration = await navigator.serviceWorker.register(`sw.js`);
       console.log('Service worker registered', registration);
+      if (registration.active) {
+        registration.addEventListener('updatefound', () => {
+          console.log('Update found');
+          const newWorker = registration.installing;
+          newWorker.addEventListener('statechange', () => {
+            console.log('newWorker ready');
+            onUpdate();
+          });
+        })
+      }
     } catch (err) {
       console.log('Service worker registration failed', err);
     }
   });
+}
+
+function onUpdate() {
+  console.log('prompt about reload');
+  window.location.reload();
 }
 
